@@ -16,7 +16,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 function AdminPanel({ products, onBackToMarketplace }) {
   const [isAddingOrUpdating, setIsAddingOrUpdating] = useState(false);
@@ -44,7 +44,7 @@ function AdminPanel({ products, onBackToMarketplace }) {
       try {
         const imageRef = ref(
           storage,
-          `images/${formProduct.imageFile.name + v4()}`
+          `images/${formProduct.imageFile.name + uuidv4()}`
         );
         await uploadBytes(imageRef, formProduct.imageFile);
         finalImageUrl = await getDownloadURL(imageRef);
